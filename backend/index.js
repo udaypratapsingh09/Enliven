@@ -10,7 +10,7 @@ const cookieParser = require("cookie-parser");
 dotenv.config();
 // database connection
 mongoose
-  .connect("mongodb://localhost:27017/Sport")
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Connected");
   })
