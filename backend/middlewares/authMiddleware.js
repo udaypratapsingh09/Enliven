@@ -17,7 +17,12 @@ module.exports.userVerification = (req, res) => {
     } else {
       const user = await User.findById(data.id);
       console.log("token verified");
-      if (user) return res.json({ status: true, user: user.name });
+      if (user)
+        return res.json({
+          status: true,
+          username: user.name,
+          userId: user._id,
+        });
       else return res.json({ status: false });
     }
   });

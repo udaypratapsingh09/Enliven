@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 // Create AuthContext
 const AuthContext = createContext();
@@ -9,26 +10,29 @@ const AuthContext = createContext();
 // AuthProvider Component
 export const AuthProvider = ({ children }) => {
   const [cookies, removeCookie] = useCookies(["token"]);
-  const [user, setUser] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [userId, setUserId] = useState(null);
   const navigate = useNavigate();
 
   // Verify the user on app load
   useEffect(() => {
     const verifyUser = async () => {
       if (!cookies.token) {
-        setUser(null);
+        setUsername(null);
+        setUserId(null);
         return;
       }
 
       try {
         const { data } = await axios.post(
-          "http://localhost:3000/api/auth",
+          `${API_BASE_URL}/auth`,
           {},
           { withCredentials: true }
         );
-
+        console.log(data);
         if (data.status) {
-          setUser(data.user);
+          setUsername(data.username);
+          setUserId(data.userId);
         } else {
           removeCookie("token");
           navigate("/login");
@@ -46,12 +50,14 @@ export const AuthProvider = ({ children }) => {
   // Logout Function
   const logout = () => {
     removeCookie("token");
-    setUser(null);
+    setUsername(null);
+    setUserId(null);
     navigate("/login");
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, logout }}>
+    <AuthContext.Provider
+      value={{ username, userId, setUsername, setUserId, logout }}>
       {children}
     </AuthContext.Provider>
   );

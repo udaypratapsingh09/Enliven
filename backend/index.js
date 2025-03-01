@@ -4,8 +4,12 @@ const path = require("path");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const authRouter = require("./routes/authRoutes");
 const cookieParser = require("cookie-parser");
+// Router imports
+const authRouter = require("./routes/authRouter");
+const searchRouter = require("./routes/searchRouter");
+const playerRouter = require("./routes/playerRouter");
+const coachRouter = require("./routes/coachRouter");
 
 dotenv.config();
 // database connection
@@ -36,6 +40,9 @@ app.use(cookieParser());
 
 // ROUTES
 app.use("/api/auth", authRouter);
+app.use("/api/search", searchRouter);
+app.use("/api/player", playerRouter);
+app.use("/api/coach", coachRouter);
 
 // Error handler
 app.use((err, req, res, next) => {

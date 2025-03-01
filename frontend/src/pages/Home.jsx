@@ -3,15 +3,15 @@ import { useAuth } from "../context/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 
 const Home = () => {
-  const { user, logout } = useAuth();
+  const { username, logout } = useAuth();
 
   return (
     <>
       <div className="home_page">
         <h4>
-          Welcome <span>{user ? user : "Guest"}</span>
+          Welcome <span>{username ? username : "Guest"}</span>
         </h4>
-        {user ? (
+        {username ? (
           <button onClick={logout}>LOGOUT</button>
         ) : (
           <a href="/login">LOGIN</a>
