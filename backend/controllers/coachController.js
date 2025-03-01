@@ -1,5 +1,4 @@
 const Coach = require("../models/coaches");
-const User = require("../models/user");
 const AppError = require("../utils/AppError");
 
 module.exports.create = async (req, res, next) => {
@@ -22,4 +21,15 @@ module.exports.create = async (req, res, next) => {
     success: true,
     message: "Profile created successfully",
   });
+};
+
+module.exports.update = async (req, res, next) => {
+  const { userId } = req.body;
+  const foundCoach = await Coach.findOne({ owner: userId });
+  if (!foundCoach) return next(new AppError("Could not find this coach", 404));
+  await foundCoach.updateOne({ ...req.body });
+  await foundCoach.save();
+  res
+    .status(200)
+    .json({ success: true, message: "Profile updated successfully" });
 };

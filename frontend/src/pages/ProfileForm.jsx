@@ -4,71 +4,10 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-// List of popular sports in India
-const sportsList = [
-  "Cricket",
-  "Football",
-  "Badminton",
-  "Hockey",
-  "Tennis",
-  "Table Tennis",
-  "Kabaddi",
-  "Athletics",
-  "Wrestling",
-  "Boxing",
-  "Shooting",
-  "Archery",
-  "Weightlifting",
-  "Basketball",
-  "Volleyball",
-  "Swimming",
-  "Cycling",
-  "Gymnastics",
-  "Golf",
-  "Chess",
-];
+import { sportsList } from "../data/sports";
+import { statesList } from "../data/states";
 
-// List of Indian States and Union Territories
-const statesList = [
-  "Andhra Pradesh",
-  "Arunachal Pradesh",
-  "Assam",
-  "Bihar",
-  "Chhattisgarh",
-  "Goa",
-  "Gujarat",
-  "Haryana",
-  "Himachal Pradesh",
-  "Jharkhand",
-  "Karnataka",
-  "Kerala",
-  "Madhya Pradesh",
-  "Maharashtra",
-  "Manipur",
-  "Meghalaya",
-  "Mizoram",
-  "Nagaland",
-  "Odisha",
-  "Punjab",
-  "Rajasthan",
-  "Sikkim",
-  "Tamil Nadu",
-  "Telangana",
-  "Tripura",
-  "Uttar Pradesh",
-  "Uttarakhand",
-  "West Bengal",
-  "Andaman and Nicobar Islands",
-  "Chandigarh",
-  "Dadra and Nagar Haveli and Daman and Diu",
-  "Lakshadweep",
-  "Delhi",
-  "Puducherry",
-  "Ladakh",
-  "Jammu and Kashmir",
-];
-
-const ProfileForm = () => {
+const ProfileForm = ({ action }) => {
   const navigate = useNavigate();
   const { username, userId } = useAuth();
   const [formData, setFormData] = useState({
@@ -87,9 +26,8 @@ const ProfileForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(`${API_BASE_URL}/${formData.role}/create`);
       const { data } = await axios.post(
-        `${API_BASE_URL}/${formData.role}/create`,
+        `${API_BASE_URL}/${formData.role}/${action}`,
         {
           ...formData,
           userId,

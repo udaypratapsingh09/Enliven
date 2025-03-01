@@ -2,16 +2,30 @@ const Coach = require("../models/coaches");
 const Player = require("../models/players");
 
 module.exports.getAll = async (req, res) => {
-  const results = await Profile.find().limit(20);
-  if (!results) return res.status(404).send("No results found");
-  res.json(results);
+  console.log("get all");
+  const players = await Player.find({}).limit(20);
+  const coaches = await Coach.find({}).limit(20);
+  if (!players.length && !coaches.length)
+    return res.json({ success: false, message: "No results were found" });
+  const results = players.concat(coaches);
+  console.log(results);
+  res.status(200).json({ success: true, message: "Found results", results });
 };
 
 module.exports.filter = async (req, res) => {
-  const filters = req.body;
-  const { text } = filters;
-  const players = await Player.find({ $text: { $search: text } }).limit(20);
-  const coaches = await Coach.find({ $text: { $search: text } }).limit(20);
-  const results = { players, coaches };
-  res.status(200).json(results);
+  console.log("filter");
+  console.log(req.body);
+  const { searchString } = req.body;
+  if (!searchString)
+    res.json({ success: false, message: "Search text not found" });
+  const players = await Player.find({ $text: { $search: searchString } }).limit(
+    20
+  );
+  const coaches = await Coach.find({ $text: { $search: searchString } }).limit(
+    20
+  );
+  if (!players.length && !coaches.length)
+    return res.json({ success: false, message: "No results were found" });
+  const results = players.concat(coaches);
+  res.status(200).json({ success: true, message: "Found results", results });
 };

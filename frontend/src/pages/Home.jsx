@@ -1,6 +1,7 @@
 import { useAuth } from "../context/AuthContext";
 // eslint-disable-next-line no-unused-vars
 import { ToastContainer, toast } from "react-toastify";
+import SearchBar from "../components/SearchBar";
 
 const Home = () => {
   const { username, logout } = useAuth();
@@ -17,6 +18,7 @@ const Home = () => {
           <a href="/login">LOGIN</a>
         )}
       </div>
+      <SearchBar />
       <ToastContainer />
     </>
   );

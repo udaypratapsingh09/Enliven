@@ -1,0 +1,23 @@
+// List of popular sports in India
+export const sportsList = [
+  "Cricket",
+  "Football",
+  "Badminton",
+  "Hockey",
+  "Tennis",
+  "Table Tennis",
+  "Kabaddi",
+  "Athletics",
+  "Wrestling",
+  "Boxing",
+  "Shooting",
+  "Archery",
+  "Weightlifting",
+  "Basketball",
+  "Volleyball",
+  "Swimming",
+  "Cycling",
+  "Gymnastics",
+  "Golf",
+  "Chess",
+];

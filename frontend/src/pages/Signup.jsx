@@ -39,7 +39,7 @@ const Signup = () => {
       const { success, message } = data;
       if (success) {
         handleSuccess(message);
-        setTimeout(() => navigate("/profileform"), 1000);
+        setTimeout(() => navigate("/profileform/create"), 1000);
       } else {
         handleError(message);
       }
