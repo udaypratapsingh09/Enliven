@@ -18,12 +18,12 @@ module.exports.filter = async (req, res) => {
   const { searchString } = req.body;
   if (!searchString)
     res.json({ success: false, message: "Search text not found" });
-  const players = await Player.find({ $text: { $search: searchString } }).limit(
-    20
-  );
-  const coaches = await Coach.find({ $text: { $search: searchString } }).limit(
-    20
-  );
+  const players = await Player.find({ $text: { $search: searchString } })
+    .collation({ locale: "en", strength: 2 })
+    .limit(20);
+  const coaches = await Coach.find({ $text: { $search: searchString } })
+    .collation({ locale: "en", strength: 2 })
+    .limit(20);
   if (!players.length && !coaches.length)
     return res.json({ success: false, message: "No results were found" });
   const results = players.concat(coaches);

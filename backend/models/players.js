@@ -29,6 +29,7 @@ playerSchema.index({
   fullname: "text",
   sport: "text",
   state: "text",
+  role: "text",
 });
 
 const Player = mongoose.model("Player", playerSchema);

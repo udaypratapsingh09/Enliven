@@ -18,7 +18,9 @@ const Home = () => {
           <a href="/login">LOGIN</a>
         )}
       </div>
-      <SearchBar />
+      <a href="searchresults" className="text-blue-500">
+        Search
+      </a>
       <ToastContainer />
     </>
   );

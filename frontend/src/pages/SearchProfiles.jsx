@@ -47,23 +47,28 @@ const SearchProfiles = () => {
     }
   };
   return (
-    <>
+    <div className="p-6">
       <SearchBar onSearch={searchUsers} ref={searchRef} />
-      {searchResults !== null && searchResults.length
-        ? searchResults.map((profile) => {
-            const { fullname, sport, role, state } = profile;
-            return (
-              <ProfileCard
-                fullname={fullname}
-                sport={sport}
-                role={role}
-                state={state}
-              />
-            );
-          })
-        : undefined}
+      <div className=" searchContainer flex flex-row flex-wrap justify-around">
+        {searchResults !== null && searchResults.length
+          ? searchResults.map((profile) => {
+              const { fullname, sport, role, state } = profile;
+              const id = profile._id;
+              console.log(id);
+              return (
+                <ProfileCard
+                  key={id}
+                  fullname={fullname}
+                  sport={sport}
+                  role={role}
+                  state={state}
+                />
+              );
+            })
+          : undefined}
+      </div>
       <ToastContainer />
-    </>
+    </div>
   );
 };
 export default SearchProfiles;

@@ -30,6 +30,7 @@ coachSchema.index({
   fullname: "text",
   sport: "text",
   state: "text",
+  role: "text",
 });
 
 const Coach = mongoose.model("Coach", coachSchema);
